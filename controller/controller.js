@@ -36,7 +36,7 @@ module.exports.addload = (req,res)=>{
         //add to db
         fromDB.saveProduct(data,(err)=>{
             if(err) console.log(err)
-            res.redirect('/showData')
+            res.redirect('/showData/all')
         })
     } else {
         res.redirect('/wrongload')
@@ -70,7 +70,7 @@ module.exports.addstore = (req,res)=>{
         //add to db
         fromDB.saveProduct(data,(err)=>{
             if(err) console.log(err)
-            res.redirect('/showData')
+            res.redirect('/showData/all')
         })
     } else {
         res.redirect('/wrongstore')
@@ -108,7 +108,7 @@ module.exports.addRegis = (req,res)=>{
         //add to db
         fromDB.saveProduct(data,(err)=>{
             if(err) console.log(err)
-            res.redirect('/showData')
+            res.redirect('/showData/all')
         })
     } else {
         res.redirect('/wrongRegis')
@@ -141,7 +141,7 @@ module.exports.addImme = (req,res)=>{
         //add to db
         fromDB.saveProduct(data,(err)=>{
             if(err) console.log(err)
-            res.redirect('/showData')
+            res.redirect('/showData/all')
         })
     } else {
         res.redirect('/wrongImme')
