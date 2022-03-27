@@ -149,7 +149,13 @@ module.exports.addImme = (req,res)=>{
 }
 
 module.exports.showdataPage = (req,res)=>{
+    let type = req.params.type
     fromDB.find().exec((err,doc)=>{
+        if(type != 'all') {
+            doc = doc.filter(data => {
+                return data.commandType === type
+            })
+        }
         res.render('../view/showdataAll',{data:doc})
     })
 }

@@ -27,6 +27,6 @@ router.get('/addImmediate',control.addImmediatePage)
 router.post('/addImme',control.addImme)
 router.get('/wrongImme',control.wrongPage)
 
-router.get('/showData',control.showdataPage)
+router.get('/showData/:type',control.showdataPage)
 
 module.exports = router
