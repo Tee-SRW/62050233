@@ -23,22 +23,27 @@ module.exports.addload = (req,res)=>{
     //check binary
     const binaryArray = combinebinary.split("")
     console.log("length",binaryArray.length)
-    if(binaryArray.length === 14) {
-        binaryArray[14] = '0'
-        binaryArray[15] = '0'
-        const makeBinary = binaryArray.join('')
-        let data = new fromDB ({
-            commandType : req.body.command,
-            binary : makeBinary
-        })
-        console.log(makeBinary)
-        console.log(data)
-        //add to db
-        fromDB.saveProduct(data,(err)=>{
-            if(err) console.log(err)
-            res.redirect('/showData/all')
-        })
-    } else {
+    console.log(checkBinary(binaryArray))
+    /*not in mvc*/if(checkBinary(binaryArray)) {
+        if(binaryArray.length === 14) {
+            binaryArray[14] = '0'
+            binaryArray[15] = '0'
+            const makeBinary = binaryArray.join('')
+            let data = new fromDB ({
+                commandType : req.body.command,
+                binary : makeBinary
+            })
+            console.log(makeBinary)
+            console.log(data)
+            //add to db
+            fromDB.saveProduct(data,(err)=>{
+                if(err) console.log(err)
+                
+            })
+        } else {
+            res.redirect('/wrongload')
+        }
+    /*not in mvc*/} else {
         res.redirect('/wrongload')
     }
 }
@@ -57,23 +62,27 @@ module.exports.addstore = (req,res)=>{
     //check binary
     const binaryArray = combinebinary.split("")
     console.log("length",binaryArray.length)
-    if(binaryArray.length === 14) {
-        binaryArray[14] = '0'
-        binaryArray[15] = '0'
-        const makeBinary = binaryArray.join('')
-        let data = new fromDB ({
-            commandType : req.body.command,
-            binary : makeBinary
-        })
-        console.log(makeBinary)
-        console.log(data)
-        //add to db
-        fromDB.saveProduct(data,(err)=>{
-            if(err) console.log(err)
-            res.redirect('/showData/all')
-        })
-    } else {
-        res.redirect('/wrongstore')
+    /*not in mvc*/if(checkBinary(binaryArray)) {
+        if(binaryArray.length === 14) {
+            binaryArray[14] = '0'
+            binaryArray[15] = '0'
+            const makeBinary = binaryArray.join('')
+            let data = new fromDB ({
+                commandType : req.body.command,
+                binary : makeBinary
+            })
+            console.log(makeBinary)
+            console.log(data)
+            //add to db
+            fromDB.saveProduct(data,(err)=>{
+                if(err) console.log(err)
+                res.redirect('/showData/all')
+            })
+        } else {
+            res.redirect('/wrongstore')
+        }
+    /*not in mvc*/} else {
+        res.redirect('/wrongload')
     }
 }
 
@@ -91,27 +100,31 @@ module.exports.addRegis = (req,res)=>{
     //check binary
     const binaryArray = combinebinary.split("")
     console.log("length",binaryArray.length)
-    if(binaryArray.length === 10) {
-        binaryArray[10] = '0'
-        binaryArray[11] = '0'
-        binaryArray[12] = '0'
-        binaryArray[13] = '0'
-        binaryArray[14] = '0'
-        binaryArray[15] = '0'
-        const makeBinary = binaryArray.join('')
-        let data = new fromDB ({
-            commandType : req.body.command,
-            binary : makeBinary
-        })
-        console.log(makeBinary)
-        console.log(data)
-        //add to db
-        fromDB.saveProduct(data,(err)=>{
-            if(err) console.log(err)
-            res.redirect('/showData/all')
-        })
-    } else {
-        res.redirect('/wrongRegis')
+    /*not in mvc*/if(checkBinary(binaryArray)) {
+        if(binaryArray.length === 10) {
+            binaryArray[10] = '0'
+            binaryArray[11] = '0'
+            binaryArray[12] = '0'
+            binaryArray[13] = '0'
+            binaryArray[14] = '0'
+            binaryArray[15] = '0'
+            const makeBinary = binaryArray.join('')
+            let data = new fromDB ({
+                commandType : req.body.command,
+                binary : makeBinary
+            })
+            console.log(makeBinary)
+            console.log(data)
+            //add to db
+            fromDB.saveProduct(data,(err)=>{
+                if(err) console.log(err)
+                res.redirect('/showData/all')
+            })
+        } else {
+            res.redirect('/wrongRegis')
+        }
+    /*not in mvc*/} else {
+        res.redirect('/wrongload')
     }
 }
 
@@ -130,21 +143,25 @@ module.exports.addImme = (req,res)=>{
     const binaryArray = combinebinary.split("")
     console.log("length",binaryArray.length)
     console.log(combinebinary)
-    if(binaryArray.length === 16) {
-        const makeBinary = binaryArray.join('')
-        let data = new fromDB ({
-            commandType : req.body.command,
-            binary : makeBinary
-        })
-        console.log(makeBinary)
-        console.log(data)
-        //add to db
-        fromDB.saveProduct(data,(err)=>{
-            if(err) console.log(err)
-            res.redirect('/showData/all')
-        })
-    } else {
-        res.redirect('/wrongImme')
+    /*not in mvc*/if(checkBinary(binaryArray)) {
+        if(binaryArray.length === 16) {
+            const makeBinary = binaryArray.join('')
+            let data = new fromDB ({
+                commandType : req.body.command,
+                binary : makeBinary
+            })
+            console.log(makeBinary)
+            console.log(data)
+            //add to db
+            fromDB.saveProduct(data,(err)=>{
+                if(err) console.log(err)
+                res.redirect('/showData/all')
+            })
+        } else {
+            res.redirect('/wrongImme')
+        }
+    /*not in mvc*/} else {
+        res.redirect('/wrongload')
     }
 }
 
@@ -158,4 +175,17 @@ module.exports.showdataPage = (req,res)=>{
         }
         res.render('../view/showdataAll',{data:doc})
     })
+}
+
+//not in mvc
+function checkBinary(binaryArray) {
+    check = true
+    for( i=0 ; i<binaryArray.length ; i++) {
+        if(binaryArray[i] === '0' || binaryArray[i] === '1') {
+            check = true
+        } else {
+            return false
+        }
+    }
+    return check
 }
